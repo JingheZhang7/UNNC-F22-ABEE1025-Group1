@@ -5,7 +5,7 @@ import copy
 from StaticEplusEngine import run_eplus_model, convert_json_idf
 
 def run_one_simulation_helper(eplus_run_path, idf_path, output_dir,
-	                            parameter_key, parameter_vais):
+                            parameter_key, parameter_vais):
     """
     This is a helper function to run one simulation with the changed
     value of the parameter_key
@@ -49,34 +49,32 @@ def run_one_parameter_parametric(eplus_run_path, idf_path, output_dir,
     import os
     if not os.path.isdir(output_dir):
     	os.mkdir(output_dir)
+    Time = [1,26,1]
     for parameter_val in parameter_vals:
-    	Time = [1:26:1]
-    	for Time in Time:
-    		this_output_dir = output_dir + 'run_{Time}'
+            this_output_dir = output_dir + 'run_{Time}'
             this_res_path = run_one_simulation_helper(eplus_run_path, idf_path,
     	                                              this_output_dir, parameter_key,
     	                                              parameter_val)
-        output_paths = this_output_dir + "/eplus.csv"
+            output_paths = this_output_dir + "/eplus.csv"
 
     return output_paths  
 
 
 
-
-	"""
-	Args:
-	----------
-	eplus_run_path, string type, the path to EnergyPlus executable
-	idf_path, string type, the path to EnergyPlus IDF file
-	output_dir, string type, the directory to store all simulation results. 
-				Note: the simulation results from different simulations 
-						must not overwrite each other. 
-	parameter_key: list type, each item in the list represents the key 
-				 at different levels. 
-				 For example, ['WindowMaterial:SimpleGlazingSystem', 
-							    'SimpleWindow:DOUBLE PANE WINDOW', 
-								'solar_heat_gain_coefficient'] 
-				 means (assume json_model is the EnergyPlus JSON model) 
+'''
+    Args:
+    ----------
+    eplus_run_path, string type, the path to EnergyPlus executable
+    idf_path, string type, the path to EnergyPlus IDF file
+    output_dir, string type, the directory to store all simulation results. 
+            Note: the simulation results from different simulations 
+                    must not overwrite each other. 
+    parameter_key: list type, each item in the list represents the key 
+                at different levels. 
+                 For example, ['WindowMaterial:SimpleGlazingSystem', 
+                            'SimpleWindow:DOUBLE PANE WINDOW', 
+                            'solar_heat_gain_coefficient'] 
+                means (assume json_model is the EnergyPlus JSON model) 
 				 json_model ['WindowMaterial:SimpleGlazingSystem']
 				 			 ['SimpleWindow:DOUBLE PANE WINDOW']
 				 			 ['solar_heat_gain_coefficient'] 
@@ -99,4 +97,4 @@ def run_one_parameter_parametric(eplus_run_path, idf_path, output_dir,
 				0.3: ‘param_sim_res/run_3/eplusout.csv’,
 				0.4: ‘param_sim_res/run_4/eplusout.csv’,
 				0.5: ‘param_sim_res/run_5/eplusout.csv’}
-	"""
+'''
